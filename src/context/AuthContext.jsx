@@ -20,7 +20,6 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }) => {
-            console.log('Initial session:', session ? 'Found' : 'Not found')
             setSession(session)
             setUser(session?.user ?? null)
             if (session?.user) {
@@ -33,7 +32,6 @@ export function AuthProvider({ children }) {
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange(async (event, session) => {
-            console.log('Auth state changed:', event, session ? 'Session exists' : 'No session')
             setSession(session)
             setUser(session?.user ?? null)
 
@@ -100,14 +98,6 @@ export function AuthProvider({ children }) {
         try {
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
-                options: {
-                    redirectTo: window.location.origin,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                    },
-                    skipBrowserRedirect: false,
-                },
             })
 
             if (error) throw error

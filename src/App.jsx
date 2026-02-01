@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { AppProvider } from './context/AppContext'
-import ProtectedRoute from './components/auth/ProtectedRoute'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import OnboardingPage from './pages/OnboardingPage'
@@ -18,22 +17,10 @@ function App() {
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/login" element={<LoginPage />} />
 
-                        {/* Protected routes */}
-                        <Route path="/onboarding" element={
-                            <ProtectedRoute>
-                                <OnboardingPage />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/tutor" element={
-                            <ProtectedRoute>
-                                <TutorPage />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/session" element={
-                            <ProtectedRoute>
-                                <SessionPage />
-                            </ProtectedRoute>
-                        } />
+                        {/* All routes now public - authentication disabled for now */}
+                        <Route path="/onboarding" element={<OnboardingPage />} />
+                        <Route path="/tutor" element={<TutorPage />} />
+                        <Route path="/session" element={<SessionPage />} />
 
                         {/* Catch all - redirect to landing */}
                         <Route path="*" element={<Navigate to="/" replace />} />

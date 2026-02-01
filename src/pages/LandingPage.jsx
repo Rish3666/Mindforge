@@ -1,23 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import ParticleBackground from '../components/landing/ParticleBackground'
 import GlowingOrb from '../components/landing/GlowingOrb'
 import { tutors } from '../data/syllabus'
-import { useAuth } from '../context/AuthContext'
 
 export default function LandingPage() {
     const navigate = useNavigate()
-    const { user, loading } = useAuth()
     const [showDemo, setShowDemo] = useState(false)
     const [activeSection, setActiveSection] = useState(null) // 'features', 'tutors', 'about'
-
-    // Redirect authenticated users to onboarding
-    useEffect(() => {
-        if (user && !loading) {
-            navigate('/onboarding', { replace: true })
-        }
-    }, [user, loading, navigate])
 
     const features = [
         { icon: '🧠', title: 'AI-Powered Tutoring', desc: 'Learn from legendary minds like Einstein, Ramanujan, and Kalam with personalized explanations' },
