@@ -135,6 +135,19 @@ export function AppProvider({ children }) {
         }
     }, [user, selectedTutor, sessionState.messages, sessionState.currentTopic])
 
+    const setCurrentTopic = (topic) => {
+        // If topic is changing, reset the session
+        if (topic !== sessionState.currentTopic) {
+            setSessionState({
+                messages: [],
+                mindMapNodes: [],
+                mindMapEdges: [],
+                progress: 0,
+                currentTopic: topic
+            })
+        }
+    }
+
     const value = {
         userPreferences,
         updatePreferences,
@@ -146,6 +159,7 @@ export function AppProvider({ children }) {
         updateMindMap,
         updateProgress,
         resetSession,
+        setCurrentTopic,
         loading
     }
 

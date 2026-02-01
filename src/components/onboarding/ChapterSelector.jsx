@@ -21,14 +21,22 @@ export default function ChapterSelector() {
 
     useEffect(() => {
         if (selectedSubject && userPreferences.level) {
-            const subjectName = subjects.find(s => s.id === selectedSubject)?.name || 'Physics'
-            const chapters = getChaptersForLevel(subjectName, userPreferences.level)
+            const subject = subjects.find(s => s.id === selectedSubject)
+            if (!subject) {
+                console.error('Subject not found:', selectedSubject)
+                setAvailableChapters([])
+                return
+            }
+            const chapters = getChaptersForLevel(subject.name, userPreferences.level)
             setAvailableChapters(chapters)
+        } else {
+            setAvailableChapters([])
         }
     }, [selectedSubject, userPreferences.level])
 
     const handleSelectSubject = (subjectId) => {
         setSelectedSubject(subjectId)
+        setAvailableChapters([]) // Clear immediately for instant feedback
         updatePreferences({ subject: subjectId, chapters: [] })
     }
 

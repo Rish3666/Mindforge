@@ -132,43 +132,27 @@ function generateFallbackResponse(message, tutor, preferences) {
         return `**Projectile Motion** - One of my favorite topics!\n\nThe key insight: Horizontal and vertical motions are **independent**!\n\n📐 **Key Formulas:**\n- Time of flight: T = 2u sin θ / g\n- Maximum height: H = u² sin² θ / 2g\n- Range: R = u² sin 2θ / g\n\n🎯 **Maximum range** occurs at **45°**!\n\nThe trajectory is always a **parabola**. Do you want to work through an example problem?`
     }
 
-    const responses = {
-        einstein: [
-            "What an interesting question! You see, the key to understanding this lies in breaking it down to its fundamental principles. Let me guide you through this step by step...",
-            "Let me explain this with a thought experiment. Picture yourself in an elevator in space - this is exactly how I began understanding gravity differently!",
-            "The beauty of physics is that once you grasp the underlying concept, everything else follows naturally. Let's think about this together..."
-        ],
-        ramanujan: [
-            "What a beautiful pattern you've touched upon! In mathematics, I always look for the underlying harmony. Let me show you the connection...",
-            "Numbers speak to us in mysterious ways. This reminds me of a formula that came to me in a dream - the relationship is elegant...",
-            "Mathematics is not just calculation, it's seeing the infinite in the finite. Let's explore this pattern together..."
-        ],
-        kalam: [
-            "My young friend, this is exactly the kind of curiosity that will take you far! Let me explain...",
-            "You know, when I was working on rocket propulsion, we faced similar questions. The answer lies in understanding the fundamentals...",
-            "Dream big, think bold! This concept is the foundation for so many innovations. Let me break it down for you..."
-        ],
-        curie: [
-            "Excellent question! This requires careful, methodical thinking. In my laboratory, I would approach it by...",
-            "Science is about patience and observation. Let's examine this step by step, as I did with radioactivity...",
-            "Don't be discouraged by complexity - every great discovery came from persistent inquiry. Here's how we can understand this..."
-        ],
-        darwin: [
-            "Fascinating! When I observe this in nature, I see connections everywhere. Let me explain the relationship...",
-            "Just as species adapt over time, your understanding will evolve as we explore this. The key is observation...",
-            "Nature has already solved many problems. This concept is beautifully illustrated by how organisms adapt..."
-        ],
-        feynman: [
-            "Oh, this is a fun one! You know, the key is to not pretend you understand something when you don't. Let's really get it...",
-            "Here's a simple way to think about it - forget the jargon for a moment. Imagine you're explaining this to a child...",
-            "The joy is in figuring it out! Let me show you how I think about this problem - it's actually pretty cool..."
-        ]
-    }
+    // If no specific topic match, provide helpful guidance
+    return `I understand you're asking about: **"${message}"**
 
-    const tutorResponses = responses[tutor.id] || responses.einstein
-    const randomResponse = tutorResponses[Math.floor(Math.random() * tutorResponses.length)]
+I'm currently running in offline mode (Gemini API not configured), but I can still help with many topics!
 
-    return randomResponse
+**Try asking about:**
+- Newton's Laws of Motion
+- Kinematic Equations  
+- Projectile Motion
+- Work and Energy
+- Thermodynamics basics
+- Chemical Bonding
+- Cell Biology
+- And many more!
+
+**To enable full AI responses:**
+1. Get a free Gemini API key from: https://aistudio.google.com/app/apikey
+2. Add it to your \`.env.local\` file as \`VITE_GEMINI_API_KEY\`
+3. Restart the dev server
+
+What specific topic would you like to explore? 🧠`
 }
 
 // Generate detailed mind map data from a topic

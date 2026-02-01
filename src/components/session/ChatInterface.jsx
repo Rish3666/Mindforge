@@ -101,6 +101,11 @@ const ChatInterface = forwardRef(function ChatInterface({ compact = false }, ref
                 sessionState.messages
             )
 
+            // Validate response isn't empty or too short
+            if (!response || response.trim().length < 10) {
+                throw new Error('Invalid response received')
+            }
+
             addMessage({ role: 'tutor', content: response })
 
             // Update progress slightly
@@ -115,7 +120,22 @@ const ChatInterface = forwardRef(function ChatInterface({ compact = false }, ref
             console.error('Chat error:', error)
             addMessage({
                 role: 'tutor',
-                content: "I apologize, but I'm having trouble connecting right now. Please check your API key configuration or try again."
+                content: `I apologize, but I'm having trouble right now. 😔
+
+**Possible issues:**
+- Gemini API key not configured or invalid
+- Network connection problem
+- Rate limit reached
+
+**What you can do:**
+1. Check your Gemini API key in \`.env.local\`
+2. Verify your internet connection
+3. Try again in a moment
+4. Ask a different question
+
+**Need help?** Check the console for detailed error messages.
+
+I'm still here to help once we resolve this! 💪`
             })
         } finally {
             setIsLoading(false)
