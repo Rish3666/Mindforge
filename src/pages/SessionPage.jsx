@@ -10,7 +10,7 @@ import { getChapterContent } from '../data/chapterContent'
 
 export default function SessionPage() {
     const navigate = useNavigate()
-    const { selectedTutor, userPreferences, sessionState, addMessage } = useApp()
+    const { selectedTutor, userPreferences, sessionState, addMessage, setCurrentTopic } = useApp()
     const [viewMode, setViewMode] = useState('read') // 'read', 'chat', 'mindmap'
     const [isMobile, setIsMobile] = useState(false)
     const chatRef = useRef(null)
@@ -28,6 +28,14 @@ export default function SessionPage() {
             navigate('/tutor')
         }
     }, [selectedTutor, navigate])
+
+    // Set current topic when chapter changes
+    useEffect(() => {
+        const currentChapter = userPreferences.chapters?.[0]
+        if (currentChapter) {
+            setCurrentTopic(currentChapter.chapterName)
+        }
+    }, [userPreferences.chapters, setCurrentTopic])
 
     if (!selectedTutor) return null
 
