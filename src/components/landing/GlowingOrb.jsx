@@ -1,8 +1,14 @@
 import { motion } from 'framer-motion'
 
-export default function GlowingOrb() {
+export default function GlowingOrb({ size = 'default' }) {
+    const sizeClasses = size === 'small'
+        ? 'w-32 h-32 md:w-40 md:h-40'
+        : 'w-64 h-64 md:w-80 md:h-80'
+
+    const particleCount = size === 'small' ? 4 : 8
+
     return (
-        <div className="relative w-64 h-64 md:w-80 md:h-80">
+        <div className={`relative ${sizeClasses}`}>
             {/* Outer glow rings */}
             <motion.div
                 animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -45,17 +51,17 @@ export default function GlowingOrb() {
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative">
                         {/* Eyes */}
-                        <div className="flex gap-8 mb-4">
+                        <div className={`flex ${size === 'small' ? 'gap-4' : 'gap-8'} mb-4`}>
                             <motion.div
                                 animate={{ opacity: [0.8, 1, 0.8] }}
                                 transition={{ duration: 2, repeat: Infinity }}
-                                className="w-6 h-3 rounded-full bg-accent-cyan"
+                                className={`${size === 'small' ? 'w-4 h-2' : 'w-6 h-3'} rounded-full bg-accent-cyan`}
                                 style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.8)' }}
                             />
                             <motion.div
                                 animate={{ opacity: [0.8, 1, 0.8] }}
                                 transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-                                className="w-6 h-3 rounded-full bg-accent-cyan"
+                                className={`${size === 'small' ? 'w-4 h-2' : 'w-6 h-3'} rounded-full bg-accent-cyan`}
                                 style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.8)' }}
                             />
                         </div>
@@ -64,7 +70,7 @@ export default function GlowingOrb() {
                         <motion.div
                             animate={{ scaleX: [0.8, 1.2, 0.8] }}
                             transition={{ duration: 3, repeat: Infinity }}
-                            className="w-12 h-1 mx-auto rounded-full bg-primary-500"
+                            className={`${size === 'small' ? 'w-8' : 'w-12'} h-1 mx-auto rounded-full bg-primary-500`}
                             style={{ boxShadow: '0 0 15px rgba(139, 92, 246, 0.8)' }}
                         />
                     </div>
@@ -72,7 +78,7 @@ export default function GlowingOrb() {
             </motion.div>
 
             {/* Floating particles around orb */}
-            {[...Array(8)].map((_, i) => (
+            {[...Array(particleCount)].map((_, i) => (
                 <motion.div
                     key={i}
                     animate={{
